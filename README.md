@@ -68,7 +68,7 @@ cd MealPlanner
 
 Then navigate to src
 
-cd MealPlanner/mealplanner/src/
+cd MealPlanner/src
 
 Now install all Required Packages:
 
