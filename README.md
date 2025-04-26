@@ -21,7 +21,7 @@ The technologies used in the provided Flask application code are:
 
 Flask: A micro web framework for building web applications in Python. It is used to create the server-side application and handle HTTP requests and responses.
 
-Flask-SQLAlchemy: A Flask extension that simplifies integration with SQL databases. It provides an ORM (Object Relational Mapper) for managing database operations.
+Flask-SQLAlchemy: A Flask extension that simplifies integration with databases. It provides an ORM (Object Relational Mapper) for managing database operations.
 
 Flask-WTF: A Flask extension that helps with handling forms, making it easier to work with forms in Flask applications. It integrates with WTForms.
 
