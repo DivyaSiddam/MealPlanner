@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - MealPrep App</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/dashboard.jpeg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        .btn {
+            background-color: #ff9800;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            transition: 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #e68900;
+        }
+        .table-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid white;
+            text-align: center;
+        }
+        th {
+            background: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+        td {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .tip-form input {
+            width: 60%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .tip-form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .tip-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .tip-list li {
+            background-color: #e4e4e4;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ username }}!</h1>
+
+        <!-- Search Form -->
+        <form action="{{ url_for('search') }}" method="get" style="margin-top: 20px;">
+            <input type="text" name="q" placeholder="Search recipes..." style="padding: 8px; width: 60%; border-radius: 5px;">
+            <button type="submit" class="btn">Search</button>
+        </form>
+
+        <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+        <hr>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div style="padding:10px;margin-bottom:15px;border-radius:5px;
+                          background:{% if category=='success' %}#4CAF50{% elif category=='danger' %}#f44336{% else %}#ff9800{% endif %}; color:white;">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <!-- Add Meal Tip Form -->
+        <h2>Add Your Meal Tip</h2>
+        <form action="{{ url_for('add_tip') }}" method="POST" class="tip-form">
+            <input type="text" name="new_tip" placeholder="Enter your meal tip..." required>
+            <button type="submit" class="btn">Submit Tip</button>
+        </form>
+
+        <div class="tip-list">
+            {% if user_tips %}
+                <ul>
+                    {% for tip in user_tips %}
+                        <li>{{ tip }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        <!-- Meal Plans Table -->
+        <h2>Your Meal Plans</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Meal Plan</th>
+                    <th>Date</th>
+                    <th>Grocery List</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if meal_plans %}
+                    {% for mp in meal_plans %}
+                    <tr>
+                        <td><a href="{{ url_for('mealplan_detail', mealplan_id=mp.id) }}" class="btn">{{ mp.name }}</a></td>
+                        <td>{{ mp.date }}</td>
+                        <td><a href="{{ url_for('grocery_list', mealplan_id=mp.id) }}" class="btn">View</a></td>
+                        <td>
+                            <a href="{{ url_for('edit_mealplan', mealplan_id=mp.id) }}" class="btn">Edit</a>
+                            <form action="{{ url_for('delete_mealplan', mealplan_id=mp.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="4">No meal plans available.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('add_mealplan') }}" class="btn">Add Meal Plan</a>
+
+        <hr>
+
+        <!-- Meal Planner -->
+        <h2>Meal Planner</h2>
+        <table>
+            <tr>
+                <td>
+                    <a href="{{ url_for('meal_planner') }}" class="btn">Meal Planner</a>
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <!-- Your Recipes -->
+        <h2>Your Recipes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Recipe Name</th>
+                    <th>Rating</th>
+                    <th>Rate Recipe</th>
+                    <th>Favorite</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if recipes %}
+                    {% for recipe in recipes %}
+                    <tr>
+                        <td><strong>{{ recipe.name }}</strong></td>
+                        <td>⭐ <strong>{{ (recipe.rating or 0)|round(1) }}/5</strong></td>
+                        <td>
+                            <form action="{{ url_for('rate_recipe', recipe_id=recipe.id) }}" method="POST">
+                                <input type="number" name="rating" min="1" max="5" required>
+                                <button type="submit" class="btn">Submit</button>
+                            </form>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('favorite_recipe', recipe_id=recipe.id) }}" class="btn">Add to Favorites</a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('edit_recipe', recipe_id=recipe.id) }}" class="btn">Edit</a>
+                            <form action="{{ url_for('delete_recipe', recipe_id=recipe.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="5">No recipes added yet.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('add_recipe') }}" class="btn">Add Recipe</a>
+        <a href="{{ url_for('weekly_summary') }}" class="btn">View Weekly Summary</a>
+
+
+        <!-- Favorite Recipes -->
+        <h2>Favorite Recipes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Recipe Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if favorite_recipes %}
+                    {% for recipe in favorite_recipes %}
+                    <tr>
+                        <td>{{ recipe.name }}</td>
+                        <td>
+                            <a href="{{ url_for('edit_recipe', recipe_id=recipe.id) }}" class="btn">Edit</a>
+                            <form action="{{ url_for('delete_recipe', recipe_id=recipe.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="2">No favorite recipes yet.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+         <hr>
+        <a href="{{ url_for('export_shopping_list') }}">
+            <button class="btn">Export Shopping List</button>
+        </a>
+        
+         <!-- Surprise Me Button -->
+          <a href="{{ url_for('surprise_me') }}">
+        <button>Surprise Me!</button>
+         </a>
+
+    </div>
+</body>
+</html>
