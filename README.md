@@ -72,7 +72,7 @@ cd MealPlanner/src
 
 Now install all Required Packages:
 
-pip install -r requirements.txt
+pip install -r requirements.txt.txt
 
 Running the Application:
 
