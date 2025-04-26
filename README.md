@@ -8,13 +8,12 @@ This Flask application is designed to help users efficiently manage their meal p
 
 purpose:
 
-The purpose of this Flask application is to provide users with a comprehensive and user-friendly platform for managing meal planning, recipes, and related tasks. It allows users to efficiently create and organize meal plans, add and modify recipes, and track grocery shopping lists. The app helps users manage their personal preferences and dietary needs by offering features like rating and favoriting recipes, sharing cooking tips, and tracking meal costs within a weekly budget. Additionally, the app includes user authentication for secure access, with hashed passwords for safety. By streamlining meal preparation, grocery shopping, and recipe organization, the app aims to make cooking more efficient, cost-effective, and enjoyable for its users. It also supports collaboration and sharing of tips among users, promoting a community-driven approach to meal planning.
+The purpose of this Flask application is to provide users with a comprehensive and user-friendly platform for managing meal planning, recipes, and related tasks. It allows users to efficiently create and organize meal plans, add and modify recipes, and track grocery shopping lists. The app helps users manage their personal preferences and dietary needs by offering features like rating and favoriting recipes, sharing cooking tips. 
 
 Value:
 
 The value of this Flask application lies in its ability to simplify and enhance the user experience when it comes to meal planning, recipe management, and grocery shopping. By offering a centralized platform for users to organize meal plans, store and search for recipes, and track ingredients and costs, it saves users time and effort in their daily routine. The app also provides personalized features such as the ability to rate and favorite recipes, helping users to easily find the meals they enjoy most.
 
-Additionally, the inclusion of a budget tracking feature provides financial value, allowing users to manage their grocery expenses effectively. By integrating with a database to store user-specific data, the app also ensures a tailored experience, addressing individual preferences and dietary requirements. Moreover, the functionality to share cooking tips fosters community engagement, enabling users to learn from each other and improve their cooking skills. Overall, the app adds value by making meal planning more organized, accessible, and affordable, while also offering a secure, personalized environment for users.
 
 Technologies Used: 
 
