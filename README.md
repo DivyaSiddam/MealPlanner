@@ -83,7 +83,8 @@ Now open your browser and go to http://127.0.0.1:5000 to start using the MealPla
 
 YouTube Video Link:
 
-https://vimeo.com/manage/videos/1079035321/3f235bd0d4?record_session_id=a6fbadc4-d4e2-4bbd-bb8c-e19ba3e4da9b&studio_feedback=true
+https://vimeo.com/1079035321?share=copy  
+
 
 
 
