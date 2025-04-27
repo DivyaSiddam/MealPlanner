@@ -79,7 +79,7 @@ python app.py
 
 This will launch the application at:http://127.0.0.1:5000
 
-Now open your browser and go to http://127.0.0.1:5000 to start using the Home-Workout-Tracker, Now you u can use all these features like User Authentication and Management,Meal Plan Management,Recipe Management,Meal Tips,Search Functionality,Weekly Summary,Surprise Me! Feature,User Interface,Data Export etc and  more... 
+Now open your browser and go to http://127.0.0.1:5000 to start using the MealPlanner, Now you u can use all these features like User Authentication and Management,Meal Plan Management,Recipe Management,Meal Tips,Search Functionality,Weekly Summary,Surprise Me! Feature,User Interface,Data Export etc and  more... 
 
 YouTube Video Link:
 
